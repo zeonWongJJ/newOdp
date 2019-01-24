@@ -1,0 +1,99 @@
+<template>
+	<Card class="tableListGooo">
+		
+		<div class='ivu-table ivu-table-border ivu-table-stripe' id="printTable">
+			<table border="1"  style="width:100%; border: 1px; table-layout:fixed;" >
+				<colgroup >
+					<col width="110">
+					<col width="300">
+					<col width="300" >
+					<col width="150">
+					<col width="60">
+				</colgroup>
+				<tr class="ivu-table-row">
+					<th class="ivu-table-column-center">
+						<div class="ivu-table-cell">
+							<span>参与人</span>
+						</div>
+					</th>
+					<th class="ivu-table-column-center">
+						<div class="ivu-table-cell">
+							<span>计划</span>
+						</div>
+					</th>
+					<th class="ivu-table-column-center">
+						<span>进度说明及问题原因</span>
+					</th>
+					<th class="ivu-table-column-center">
+						<div class="ivu-table-cell">
+							<span>时间</span>
+						</div>
+					</th>
+					<th class="ivu-table-column-center">
+						<div class="ivu-table-cell">
+							<span>进度</span>
+						</div>
+					</th>
+				</tr>
+				<template v-for="(plan, index2) in planData">
+					<tr class="ivu-table-row">
+						<td  class="ivu-table-column-center" :rowspan="plan.group_plan_list.length " >
+							<pre>{{plan.group_info.group_info}}</pre>
+						</td>
+						<td class="ivu-table-column-center">
+							<pre>{{plan.group_plan_list[0].plan_name}}</pre>
+						</td>
+						<td class="ivu-table-column-center" style="word-wrap:break-word;">
+							<div>
+								{{plan.group_plan_list[0].plan_discuss}}
+							</div>
+						</td>
+						<td class="ivu-table-column-center">{{plan.group_plan_list[0].date}}</td>
+						<td class="ivu-table-column-center" v-if="plan.group_plan_list[0].progress!=null">{{plan.group_plan_list[0].progress}}%</td>
+						<td class="ivu-table-column-center" v-else>0%</td>
+					</tr>
+					<tr class="ivu-table-row" v-for="(planItem, index) in plan.group_plan_list" v-if="index">
+						<td class="ivu-table-column-center">{{planItem.plan_name}}</td>
+						<td class="ivu-table-column-center" style="word-wrap:break-word;">
+							<div>
+								{{planItem.plan_discuss}}
+							</div>
+						</td>
+						<td class="ivu-table-column-center">{{planItem.date}}</td>
+						<td class="ivu-table-column-center" v-if="planItem.progress !=null">{{planItem.progress}}%</td>
+						<td class="ivu-table-column-center" v-else>0%</td>
+					</tr>
+				</template>
+			
+		</table>
+		</div>
+		
+	</Card>
+</template>
+
+<script>
+	export default {
+		name: 'dataTable',
+		props: {
+			planData: {
+				type: Object,
+				default () {
+					return {}
+				}
+			}
+		},
+		data(){
+			return{
+				monthShow:false,
+			}
+		},
+		mounted () {
+			console.log(this.planData)
+		}
+	}
+</script>
+
+<style>
+
+
+</style>
